@@ -59,9 +59,9 @@ def home():
 # ---------- SENSOR DATA ----------
 @app.route("/sensor", methods=["POST"])
 def receive_sensor():
-    latest_sensor["temperature"] = request.form.get("temperature")
-    latest_sensor["humidity"] = request.form.get("humidity")
-    latest_sensor["moisture"] = request.form.get("moisture")
+    latest_sensor["temperature"] = float(request.form.get("temperature"))
+    latest_sensor["humidity"] = float(request.form.get("humidity"))
+    latest_sensor["moisture"] = float(request.form.get("moisture"))
 
     return jsonify({"status": "sensor data received"})
 
