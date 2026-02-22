@@ -4,25 +4,24 @@ import numpy as np
 from tensorflow.keras.preprocessing import image
 from io import BytesIO
 import os
-import gc
 
 app = Flask(__name__)
 
 # ============================
-# LOAD TOMATO MODEL (ON START)
+# LOAD TOMATO MODEL (NEW)
 # ============================
 
-MODEL_PATH = "tomato_model_final.keras"
+MODEL_PATH = "tomato_model_v2.keras"   # <-- NEW MODEL NAME
 
 if not os.path.exists(MODEL_PATH):
-    raise FileNotFoundError("tomato_model_final.keras not found in backend folder")
+    raise FileNotFoundError("tomato_model_v2.keras not found in backend folder")
 
 print("🔄 Loading Tomato model...")
 model = tf.keras.models.load_model(MODEL_PATH, compile=False)
 print("✅ Tomato model loaded")
 
 # ============================
-# CLASS LABELS (LOCKED ORDER)
+# CLASS LABELS
 # ============================
 
 CLASS_NAMES = [
@@ -49,19 +48,108 @@ latest_sensor = {
 }
 
 # ============================
+# SENSOR RISK LOGIC
+# ============================
+
+def analyze_risk(temp, humidity, moisture):
+
+    risks = []
+
+    if humidity is None:
+        return ["Sensor data not available"]
+
+    if humidity > 85 and moisture > 70:
+        risks.append("Favorable conditions for Late Blight")
+
+    if humidity > 75 and temp > 20:
+        risks.append("Possible Early Blight risk")
+
+    if humidity > 80 and temp > 22:
+        risks.append("Conditions favorable for Leaf Mold")
+
+    if temp > 30 and humidity < 50:
+        risks.append("Possible Spider Mites risk")
+
+    if len(risks) == 0:
+        risks.append("No major disease-favorable conditions detected")
+
+    return risks
+
+# ============================
+# PRECAUTIONARY MEASURES
+# ============================
+
+PRECAUTIONS = {
+    "late_blight": [
+        "Remove infected leaves",
+        "Avoid overhead irrigation",
+        "Improve drainage",
+        "Apply recommended fungicide"
+    ],
+    "early_blight": [
+        "Remove infected plant debris",
+        "Practice crop rotation",
+        "Avoid wetting leaves",
+        "Apply fungicide if needed"
+    ],
+    "leaf_mold": [
+        "Reduce humidity",
+        "Increase air circulation",
+        "Avoid wet leaves",
+        "Apply fungicide spray"
+    ],
+    "bacterial_spot": [
+        "Use certified seeds",
+        "Avoid overhead watering",
+        "Apply copper-based spray"
+    ],
+    "septoria_leaf_spot": [
+        "Remove infected leaves",
+        "Avoid overhead irrigation",
+        "Apply fungicide"
+    ],
+    "target_spot": [
+        "Improve air circulation",
+        "Remove infected leaves",
+        "Apply fungicide"
+    ],
+    "twospotted_spider_mite": [
+        "Spray water on leaves",
+        "Use neem oil",
+        "Apply insecticide if severe"
+    ],
+    "mosaic_virus": [
+        "Remove infected plants",
+        "Control aphids",
+        "Use resistant varieties"
+    ],
+    "yellow_leaf_curl_virus": [
+        "Control whiteflies",
+        "Remove infected plants",
+        "Use resistant varieties"
+    ],
+    "healthy": [
+        "Crop is healthy",
+        "Maintain proper irrigation",
+        "Regular monitoring recommended"
+    ]
+}
+
+# ============================
 # ROUTES
 # ============================
 
 @app.route("/")
 def home():
-    return "Tomato Backend Running"
+    return "Tomato Backend Running (Fine Tuned Model)"
 
 # ---------- SENSOR DATA ----------
 @app.route("/sensor", methods=["POST"])
 def receive_sensor():
-    latest_sensor["temperature"] = request.form.get("temperature")
-    latest_sensor["humidity"] = request.form.get("humidity")
-    latest_sensor["moisture"] = request.form.get("moisture")
+
+    latest_sensor["temperature"] = float(request.form.get("temperature"))
+    latest_sensor["humidity"] = float(request.form.get("humidity"))
+    latest_sensor["moisture"] = float(request.form.get("moisture"))
 
     return jsonify({"status": "sensor data received"})
 
@@ -74,28 +162,36 @@ def predict():
     if not image_file:
         return jsonify({"error": "image missing"}), 400
 
-    # SAME PIPELINE AS COLAB
+    # EXACT SAME PIPELINE AS COLAB
     img = image.load_img(BytesIO(image_file.read()), target_size=(224,224))
-    img_array = image.img_to_array(img)
-    img_array = img_array / 255.0
-    img_array = np.expand_dims(img_array, axis=0)
+    img = image.img_to_array(img)
+    img = img / 255.0
+    img = np.expand_dims(img, axis=0)
 
-    pred = model.predict(img_array)
-    idx = int(np.argmax(pred))
-    confidence = float(pred[0][idx])
-    label = CLASS_NAMES[idx]
-
-    # HEALTHY SAFEGUARD
-    if confidence < 0.60:
-        label = "healthy"
+    pred = model.predict(img)
+    index = int(np.argmax(pred))
+    label = CLASS_NAMES[index]
+    confidence = float(pred[0][index])
 
     confidence = round(confidence * 100, 2)
+
+    risk = analyze_risk(
+        latest_sensor["temperature"],
+        latest_sensor["humidity"],
+        latest_sensor["moisture"]
+    )
+
+    precautions = PRECAUTIONS.get(label, [])
 
     return jsonify({
         "prediction": label,
         "confidence": confidence,
-        "sensor": latest_sensor
+        "sensor": latest_sensor,
+        "risk": risk,
+        "precautions": precautions
     })
+
+# ============================
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
