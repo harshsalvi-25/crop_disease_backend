@@ -80,57 +80,87 @@ def analyze_risk(temp, humidity, moisture):
 # ============================
 
 PRECAUTIONS = {
+
     "late_blight": [
         "Remove infected leaves",
         "Avoid overhead irrigation",
         "Improve drainage",
-        "Apply recommended fungicide"
+        "Apply fungicide: Metalaxyl + Mancozeb",
+        "Alternative: Carbendazim (Gretel)",
+        "Use micronutrient spray (Microla) for plant strength"
     ],
+
     "early_blight": [
         "Remove infected plant debris",
         "Practice crop rotation",
         "Avoid wetting leaves",
-        "Apply fungicide if needed"
+        "Apply fungicide: Mancozeb or Chlorothalonil",
+        "Alternative: Carbendazim + Mancozeb (Smooth)",
+        "Apply foliar fertilizers to improve resistance"
     ],
+
     "leaf_mold": [
         "Reduce humidity",
         "Increase air circulation",
         "Avoid wet leaves",
-        "Apply fungicide spray"
+        "Apply fungicide spray: Carbendazim",
+        "Use bio-products: Bio Rapid / Verramicro",
+        "Apply micronutrient spray (Microla)"
     ],
+
     "bacterial_spot": [
         "Use certified seeds",
         "Avoid overhead watering",
-        "Apply copper-based spray"
+        "Apply bactericide: Kasugamycin + Copper Oxychloride (Conika)",
+        "Use copper-based spray",
+        "Apply micronutrients to boost immunity"
     ],
+
     "septoria_leaf_spot": [
         "Remove infected leaves",
         "Avoid overhead irrigation",
-        "Apply fungicide"
+        "Apply fungicide: Mancozeb",
+        "Alternative: Carbendazim based spray",
+        "Use foliar fertilizer for plant recovery"
     ],
+
     "target_spot": [
         "Improve air circulation",
         "Remove infected leaves",
-        "Apply fungicide"
+        "Apply fungicide: Chlorothalonil",
+        "Use micronutrient fertilizer (Microla)",
+        "Maintain balanced fertilization"
     ],
+
     "twospotted_spider_mite": [
         "Spray water on leaves",
         "Use neem oil",
-        "Apply insecticide if severe"
+        "Apply insecticide: Profex Super (Profenofos + Cypermethrin)",
+        "Maintain proper irrigation",
+        "Avoid excessive heat stress"
     ],
+
     "mosaic_virus": [
-        "Remove infected plants",
-        "Control aphids",
-        "Use resistant varieties"
+        "Remove infected plants immediately",
+        "Control aphids (vector insects)",
+        "Use resistant varieties",
+        "Apply bio-stimulants (Bio Rapid)",
+        "Maintain plant nutrition using micronutrients"
     ],
+
     "yellow_leaf_curl_virus": [
         "Control whiteflies",
         "Remove infected plants",
-        "Use resistant varieties"
+        "Use resistant varieties",
+        "Apply insecticide for vector control",
+        "Use micronutrient sprays for recovery"
     ],
+
     "healthy": [
         "Crop is healthy",
         "Maintain proper irrigation",
+        "Apply balanced fertilizers",
+        "Use foliar fertilizers periodically",
         "Regular monitoring recommended"
     ]
 }
