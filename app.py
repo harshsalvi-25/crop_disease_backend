@@ -169,18 +169,19 @@ TREATMENT = {
     "early_blight": {
         "pesticide": [
             {"name": "Smooth Fungicide (Carbendazim 12% + Mancozeb 63% WP)",
-             "image": "https://agribegri.com/_next/image?url=https://dujjhct8zer0r.cloudfront.net/media/prod_image/927b3b4fa489e1ee44db16697765d11d.webp"}
+             "image": "https://cpimg.tistatic.com/09073149/b/4/Carbendazim-12-Mancozeb-63-WP.jpg"}
         ],
         "fertilizer": [
             {"name": "Verramicro Micronutrient Fertilizer",
-             "image": "https://verrafert.com/wp-content/uploads/2024/06/VERRAMICRO-scaled-Photoroom.jpg"}
+             "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXnSuwp4r2QJM3U4zugG3HgZJD-89Akp-yaw&s"
+            }
         ]
     },
 
     "late_blight": {
         "pesticide": [
             {"name": "Smooth Fungicide (Carbendazim 12% + Mancozeb 63% WP)",
-             "image": "https://agribegri.com/_next/image?url=https://dujjhct8zer0r.cloudfront.net/media/prod_image/927b3b4fa489e1ee44db16697765d11d.webp"}
+             "image": "https://cpimg.tistatic.com/09073149/b/4/Carbendazim-12-Mancozeb-63-WP.jpg"}
         ],
         "fertilizer": [
             {"name": "Bio Rapid Bio-Fertilizer",
@@ -217,7 +218,7 @@ TREATMENT = {
         ],
         "fertilizer": [
             {"name": "Verramicro Micronutrient Fertilizer",
-             "image": "https://verrafert.com/wp-content/uploads/2024/06/VERRAMICRO-scaled-Photoroom.jpg"}
+             "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXnSuwp4r2QJM3U4zugG3HgZJD-89Akp-yaw&s"}
         ]
     },
 
@@ -246,7 +247,7 @@ TREATMENT = {
     "yellow_leaf_curl_virus": {
         "pesticide": [
             {"name": "Imidacloprid Insecticide (Imidacloprid 17.8% SL)",
-             "image": "https://5.imimg.com/data5/SELLER/Default/2021/4/ZO/YV/KA/12143645/imidacloprid-insecticide-500x500.jpg"}
+             "image": "https://krishibhandar.com/cdn/shop/files/ebs-imidasecure-imidacloprid-178-sl-insecticide-7299005.jpg?v=1769499409&width=1920"}
         ],
         "fertilizer": [
             {"name": "Microla Micronutrient Fertilizer",
@@ -257,7 +258,7 @@ TREATMENT = {
     "healthy": {
         "pesticide": [
             {"name": "Not Required",
-             "image": "https://plantperfect.com/wp-content/uploads/2022/07/Plant-Perfect-Garden-Center-How-to-Care-for-Your-Tomatoes-in-Bismarck-healthy-tomatoes-on-vine.jpg"}
+             "image": "https://img.freepik.com/premium-vector/no-action-required-red-rubber-stamp-with-text-white-background_545399-3715.jpg"}
         ],
         "fertilizer": [
             {"name": "Microla Micronutrient Fertilizer",
